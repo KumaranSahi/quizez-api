@@ -1,8 +1,10 @@
 const usersdb=require('../Models/users.model');
 const jwt=require('jsonwebtoken');
+const admindb=require('../Models/admin.model')
+const bcrypt=require('bcrypt')
 
 module.exports.signupUser=async (req,res)=>{
-    const {name,email,password,image}=req.body;
+    const {name,email,password,image,isAdmin}=req.body;
     let data=null;
     try{
     if(await usersdb.findOne({email:email})){
@@ -16,15 +18,23 @@ module.exports.signupUser=async (req,res)=>{
             data=await usersdb.create({
                 name:name,
                 email:email,
-                password:password,
+                password:bcrypt.hashSync(password,8),
                 image:image
             })
         }else{
             data=await usersdb.create({
                 name:name,
                 email:email,
-                password:password,
+                password:bcrypt.hashSync(password,8),
                 image:null
+            })
+        }
+        if(isAdmin){
+            const admin=await admindb.create({
+                adminUser:data._id
+            })
+            await data.update({
+                isAdmin:admin._id
             })
         }
     }
@@ -59,7 +69,7 @@ module.exports.changePassword=async (req,res)=>{
     }
     const user=await usersdb.findOne({email:email});
     if(user){
-        await user.update({password:password});
+        await user.update({password:bcrypt.hashSync(password,8)});
         return res.status(200).json({
             ok:true,
             message:"Password Updated Successfully"
@@ -76,7 +86,7 @@ module.exports.signinUser=async (req,res)=>{
     const {email,password}=req.body;
     try{
         const user=await usersdb.findOne({email:email})
-        if (!user || user.password !== password){
+        if (!user || !(bcrypt.compareSync(password,user.password))){
             return res.status(401).json({
                 ok:false,
                 message: "Invalid username or password",
