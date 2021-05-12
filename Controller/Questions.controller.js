@@ -32,3 +32,22 @@ module.exports.createQuestion=async (req,res)=>{
         })
     }
 }
+
+module.exports.deleteQuestion=async (req,res)=>{
+    const {questionId}=req.params;
+    try{
+        const question=await questionsdb.findById(questionId);
+        await admindb.findByIdAndUpdate(question.createdBy,{$pull:{createdQuestions:questionId}})
+        await quizdb.findByIdAndUpdate(question.quiz,{$pull:{questions:questionId}})
+        await question.deleteOne()
+        return res.status(201).json({
+            ok:true,
+            message:"Question deleted successfully"
+        })
+    }catch(error){
+        console.log(error)
+        return res.status(503).json({
+            message:"Error Deleting Question"
+        })
+    }
+}

@@ -28,5 +28,6 @@ router.get("/quizes/:quizId",passport.authenticate('jwt',{session:false}),quizCh
 //question routes
 
 router.post('/questions',passport.authenticate('jwt',{session:false}),questionController.createQuestion)
+router.delete('/questions/:questionId',passport.authenticate('jwt',{session:false}),questionController.deleteQuestion)
 
 module.exports=router;
