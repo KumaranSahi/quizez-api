@@ -23,7 +23,7 @@ const questionSchema=new Schema({
         type:String
     },createdBy:{
         type:Schema.Types.ObjectId,
-        ref:'user'
+        ref:'admin'
     }
 },{timestamps:true})
 

@@ -11,6 +11,7 @@ const quizCheck=require('../Middleware/quizCheck')
 
 const userController=require('../Controller/User.controller')
 const quizController=require('../Controller/Quiz.controller')
+const questionController=require('../Controller/Questions.controller')
 
 //User routes
 
@@ -23,5 +24,9 @@ router.post('/users/password',userController.changePassword)
 router.post('/quizes/:id/create',passport.authenticate('jwt',{session:false}),userCheck,quizController.createQuiz)
 router.get('/quizes',passport.authenticate('jwt',{session:false}),quizController.getAllQuizes)
 router.get("/quizes/:quizId",passport.authenticate('jwt',{session:false}),quizCheck,quizController.getQuiz)
+
+//question routes
+
+router.post('/questions',passport.authenticate('jwt',{session:false}),questionController.createQuestion)
 
 module.exports=router;

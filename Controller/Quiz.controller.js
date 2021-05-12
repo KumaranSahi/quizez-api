@@ -1,6 +1,4 @@
 const quizdb=require('../Models/quiz.model')
-const questionsdb=require('../Models/question.model')
-const usersdb=require('../Models/users.model')
 const admindb=require('../Models/admin.model')
 
 module.exports.createQuiz=async (req,res)=>{
@@ -11,8 +9,11 @@ module.exports.createQuiz=async (req,res)=>{
         const newQuiz=await quizdb.create({
             name:name,
             image:image,
-            createdBy:admin._id
+            createdBy:admin._id,
+            questions:[]
         })
+        admin.createdQuizes.push(newQuiz._id)
+        await admin.save()
         return res.status(201).json({
             ok:true,
             data:newQuiz
