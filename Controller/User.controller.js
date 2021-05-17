@@ -94,8 +94,8 @@ module.exports.signinUser=async (req,res)=>{
         }
         return res.status(200).json({
             message: 'Sign in successful, here is your token, please keep it safe!',
+            ok:true,
             data:  {
-                ok:true,
                 token: jwt.sign(user.toJSON(),process.env["SECRET"], {expiresIn:  '60m'}),
                 userId:user.id,
                 userName:user.name,

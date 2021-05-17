@@ -5,7 +5,8 @@ const passport=require('passport')
 //middlewares
 
 const userCheck=require('../Middleware/userCheck');
-const quizCheck=require('../Middleware/quizCheck')
+const quizCheck=require('../Middleware/quizCheck');
+const questionCheck=require('../Middleware/questionCheck')
 
 //controller
 
@@ -24,10 +25,12 @@ router.post('/users/password',userController.changePassword)
 router.post('/quizes/:id/create',passport.authenticate('jwt',{session:false}),userCheck,quizController.createQuiz)
 router.get('/quizes',passport.authenticate('jwt',{session:false}),quizController.getAllQuizes)
 router.get("/quizes/:quizId",passport.authenticate('jwt',{session:false}),quizCheck,quizController.getQuiz)
+router.get("/quizes/:id/user",passport.authenticate('jwt',{session:false}),userCheck,quizController.getUserQuizes)
 
 //question routes
 
-router.post('/questions',passport.authenticate('jwt',{session:false}),questionController.createQuestion)
+router.post('/questions/:id',passport.authenticate('jwt',{session:false}),userCheck,questionController.createQuestion)
+router.post('/questions/:questionId/edit',passport.authenticate('jwt',{session:false}),questionCheck,questionController.editQuestion)
 router.delete('/questions/:questionId',passport.authenticate('jwt',{session:false}),questionController.deleteQuestion)
 
 module.exports=router;

@@ -4,6 +4,8 @@ const quizSchema=new Schema({
     name:{
         type:String,
         required:true
+    },description:{
+        type:String
     },questions:[{
         type:Schema.Types.ObjectId,
         ref:'question'
