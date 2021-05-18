@@ -65,7 +65,11 @@ module.exports.getQuiz=async(req,res)=>{
             questions:quiz.questions.map((item)=>({
                 id:item._id,
                 question:item.question,
-                options:item.options,
+                options:item.options.map(({_id,content,isCorrect})=>({
+                    id:_id,
+                    content:content,
+                    isCorrect:isCorrect
+                })),
                 multipleCorrect:item.multipleCorrect,
                 points:item.points,
                 negativePoints:item.negativePoints,
