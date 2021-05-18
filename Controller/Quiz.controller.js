@@ -62,7 +62,15 @@ module.exports.getQuiz=async(req,res)=>{
             name:quiz.name,
             id:quiz._id,
             description:quiz.description,
-            questions:quiz.questions,
+            questions:quiz.questions.map((item)=>({
+                id:item._id,
+                question:item.question,
+                options:item.options,
+                multipleCorrect:item.multipleCorrect,
+                points:item.points,
+                negativePoints:item.negativePoints,
+                hint:item.hint
+            })),
             image:quiz.image
         }
         return res.status(200).json({
