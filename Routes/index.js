@@ -13,6 +13,7 @@ const questionCheck=require('../Middleware/questionCheck')
 const userController=require('../Controller/User.controller')
 const quizController=require('../Controller/Quiz.controller')
 const questionController=require('../Controller/Questions.controller')
+const scoreboardController=require('../Controller/Scoreboard.controller')
 
 //User routes
 
@@ -32,5 +33,9 @@ router.get("/quizes/:id/user",passport.authenticate('jwt',{session:false}),userC
 router.post('/questions/:id',passport.authenticate('jwt',{session:false}),userCheck,questionController.createQuestion)
 router.post('/questions/:questionId/edit',passport.authenticate('jwt',{session:false}),questionCheck,questionController.editQuestion)
 router.delete('/questions/:questionId',passport.authenticate('jwt',{session:false}),questionController.deleteQuestion)
+
+//scorecard routes
+
+router.post("/scorecards/:id",passport.authenticate('jwt',{session:false}),userCheck,scoreboardController.QuizDone)
 
 module.exports=router;
