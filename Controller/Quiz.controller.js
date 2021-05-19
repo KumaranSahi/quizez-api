@@ -36,7 +36,7 @@ module.exports.createQuiz=async (req,res)=>{
 module.exports.getAllQuizes=async (req,res)=>{
     try{
         const quizes=await quizdb.find();
-        const newQuizes=quizes.map(({_id,name,image,description})=>({
+        const newQuizes=quizes.filter(({questions})=>questions.length>0).map(({_id,name,image,description})=>({
             id:_id,
             name:name,
             image:image,
