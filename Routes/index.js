@@ -38,5 +38,6 @@ router.delete('/questions/:questionId',passport.authenticate('jwt',{session:fals
 
 router.get("/scorecards",passport.authenticate('jwt',{session:false}),scoreboardController.getTopTen)
 router.post("/scorecards/:id",passport.authenticate('jwt',{session:false}),userCheck,scoreboardController.QuizDone)
+router.get("/scorecards/:id",passport.authenticate('jwt',{session:false}),userCheck,scoreboardController.getUserTopTen)
 
 module.exports=router;
