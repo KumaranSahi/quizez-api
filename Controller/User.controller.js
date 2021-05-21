@@ -99,7 +99,8 @@ module.exports.signinUser=async (req,res)=>{
                 token: jwt.sign(user.toJSON(),process.env["SECRET"], {expiresIn:  '60m'}),
                 userId:user.id,
                 userName:user.name,
-                image:user.image
+                image:user.image,
+                isAdmin:user.isAdmin
             }
         })
     }catch(error){
