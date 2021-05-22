@@ -4,9 +4,9 @@ const admindb=require('../Models/admin.model')
 
 module.exports.createQuestion=async (req,res)=>{
     const {question,options,multipleCorrect,points,negativePoints,quiz:quizId,hint}=req.body
-    const {id}=req.params
+    const user=req.user
     try{
-        const admin=await admindb.findOne({adminUser:id})
+        const admin=await admindb.findById(user.isAdmin)
         const quiz=await quizdb.findById(quizId)
         const newQuestion=await questionsdb.create({
             question:question,
@@ -46,18 +46,19 @@ module.exports.createQuestion=async (req,res)=>{
 }
 
 module.exports.editQuestion=async (req,res)=>{
-    const {question,options,multipleCorrect,points,negativePoints,quiz:quizId,hint,createdBy}=req.body;
+    const {question:content,options,multipleCorrect,points,negativePoints,quiz:quizId,hint,createdBy}=req.body;
     const {questionId}=req.params;
+    const question=req.question;
     try{
-        const newQuestion=await questionsdb.findByIdAndUpdate(questionId,{
-            question:question,
+        await question.update({
+            question:content,
             options:options,
             multipleCorrect:multipleCorrect,
             points:points,
             negativePoints:negativePoints,
             hint:hint,
         })
-
+        const newQuestion=await questionsdb.findById(questionId)
         const editQuestion={
             id:newQuestion._id,
             question:newQuestion.question,
@@ -67,7 +68,6 @@ module.exports.editQuestion=async (req,res)=>{
             negativePoints:newQuestion.negativePoints,
             hint:newQuestion.hint
         }
-
         return res.status(201).json({
             ok:"true",
             data:editQuestion,
@@ -83,11 +83,11 @@ module.exports.editQuestion=async (req,res)=>{
 
 module.exports.deleteQuestion=async (req,res)=>{
     const {questionId}=req.params;
+    const question=req.question
     try{
-        const question=await questionsdb.findById(questionId);
         await admindb.findByIdAndUpdate(question.createdBy,{$pull:{createdQuestions:questionId}})
         await quizdb.findByIdAndUpdate(question.quiz,{$pull:{questions:questionId}})
-        await question.deleteOne()
+        await question.remove()
         return res.status(201).json({
             ok:true,
             message:"Question deleted successfully"

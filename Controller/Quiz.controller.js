@@ -3,9 +3,9 @@ const admindb=require('../Models/admin.model')
 
 module.exports.createQuiz=async (req,res)=>{
     const {name,image,description}=req.body;
-    const {id}=req.params
+    const user=req.user
     try{
-        const admin=await admindb.findOne({adminUser:id})
+        const admin=await admindb.findById(user.isAdmin)
         const newQuiz=await quizdb.create({
             name:name,
             image:image,
@@ -55,9 +55,9 @@ module.exports.getAllQuizes=async (req,res)=>{
 }
 
 module.exports.getQuiz=async(req,res)=>{
-    const {quizId}=req.params
+    const fetchedQuiz=req.quiz
     try{
-        const quiz=await (await quizdb.findById(quizId)).execPopulate('questions')
+        const quiz=await fetchedQuiz.execPopulate('questions')
         const newQuiz={
             name:quiz.name,
             id:quiz._id,
@@ -91,9 +91,9 @@ module.exports.getQuiz=async(req,res)=>{
 }
 
 module.exports.getUserQuizes=async(req,res)=>{
-    const {id}=req.params;
+    const user=req.user
     try{
-        const admin=await admindb.findOne({adminUser:id});
+        const admin=await admindb.findById(user.isAdmin);
         const quizes=await admin.execPopulate('createdQuizes')
         const newQuizes=quizes.createdQuizes.map(({_id,name,image,description,questions})=>({
             id:_id,

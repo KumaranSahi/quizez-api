@@ -32,7 +32,7 @@ router.get("/quizes/:id/user",passport.authenticate('jwt',{session:false}),userC
 
 router.post('/questions/:id',passport.authenticate('jwt',{session:false}),userCheck,questionController.createQuestion)
 router.post('/questions/:questionId/edit',passport.authenticate('jwt',{session:false}),questionCheck,questionController.editQuestion)
-router.delete('/questions/:questionId',passport.authenticate('jwt',{session:false}),questionController.deleteQuestion)
+router.delete('/questions/:questionId',passport.authenticate('jwt',{session:false}),questionCheck,questionController.deleteQuestion)
 
 //scorecard routes
 

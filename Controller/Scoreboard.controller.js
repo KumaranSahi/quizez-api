@@ -4,14 +4,13 @@ const usersdb=require('../Models/users.model');
 module.exports.QuizDone=async (req,res)=>{
     const {id}=req.params;
     const {score,quizId}=req.body;
+    const user=req.user;
     try{
-        console.log(quizId)
         const scorecard=await scoreboardsdb.create({
             user:id,
             quiz:quizId,
             score:score
         })
-        const user=await usersdb.findById(id);
         user.scores.push(scorecard._id);
         await user.save();
         return res.status(200).json({

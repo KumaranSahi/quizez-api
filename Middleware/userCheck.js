@@ -3,7 +3,9 @@ const usersdb=require('../Models/users.model');
 const userCheck=async (req,res,next)=>{
     const {id}=req.params;
     try{
-        if(await usersdb.findById(id)){
+        const user=await usersdb.findById(id)
+        if(user){
+            req.user=user;
             next()
         }else{
             return res.status(404).json({

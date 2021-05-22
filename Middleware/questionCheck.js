@@ -3,7 +3,9 @@ const questionsdb=require('../Models/question.model');
 const questionCheck=async (req,res,next)=>{
     const {questionId}=req.params;
     try{
-        if(await questionsdb.findById(questionId)){
+        const question=await questionsdb.findById(questionId)
+        if(question){
+            req.question=question;
             next()
         }else{
             return res.status(404).json({
