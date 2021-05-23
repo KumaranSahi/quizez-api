@@ -4,24 +4,31 @@ const questionSchema=new Schema({
     question:{
         type:String,
         required:true
-    },options:[{
+    },
+    options:[{
         content:{
             type:String
         },isCorrect:{
             type:Boolean
         }
-    }],multipleCorrect:{
+    }],
+    multipleCorrect:{
         type:Boolean
-    },points:{
+    },
+    points:{
         type:Number
-    },negativePoints:{
+    },
+    negativePoints:{
         type:Number
-    },quiz:{
+    },
+    quiz:{
         type:Schema.Types.ObjectId,
         ref:'quiz'
-    },hint:{
+    },
+    hint:{
         type:String
-    },createdBy:{
+    },
+    createdBy:{
         type:Schema.Types.ObjectId,
         ref:'admin'
     }

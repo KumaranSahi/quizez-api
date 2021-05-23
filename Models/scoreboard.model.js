@@ -4,10 +4,12 @@ const scoreboardSchema=new Schema({
     user:{
         type:Schema.Types.ObjectId,
         ref:'user'
-    },quiz:{
+    },
+    quiz:{
         type:Schema.Types.ObjectId,
         ref:'quiz'
-    },score:{
+    },
+    score:{
         type:Number
     }
 },{timestamps:true})

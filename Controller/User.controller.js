@@ -1,7 +1,6 @@
-const usersdb=require('../Models/users.model');
 const jwt=require('jsonwebtoken');
-const admindb=require('../Models/admin.model')
 const bcrypt=require('bcrypt')
+const {usersdb,admindb}=require("../Models")
 
 module.exports.signupUser=async (req,res)=>{
     const {name,email,password,image,isAdmin}=req.body;
@@ -93,7 +92,7 @@ module.exports.signinUser=async (req,res)=>{
             });
         }
         return res.status(200).json({
-            message: 'Sign in successful, here is your token, please keep it safe!',
+            message: "Sign in successful, here is your token, please keep it safe!",
             ok:true,
             data:  {
                 token: jwt.sign(user.toJSON(),process.env["SECRET"], {expiresIn:  '60m'}),

@@ -1,5 +1,4 @@
-const quizdb=require('../Models/quiz.model')
-const admindb=require('../Models/admin.model')
+const {quizdb,admindb}=require("../Models")
 
 module.exports.createQuiz=async (req,res)=>{
     const {name,image,description}=req.body;

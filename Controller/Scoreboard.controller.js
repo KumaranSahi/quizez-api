@@ -1,5 +1,4 @@
-const scoreboardsdb=require('../Models/scoreboard.model')
-const usersdb=require('../Models/users.model');
+const {scoreboardsdb}=require("../Models")
 
 module.exports.QuizDone=async (req,res)=>{
     const {id}=req.params;

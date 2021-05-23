@@ -4,14 +4,18 @@ const quizSchema=new Schema({
     name:{
         type:String,
         required:true
-    },description:{
+    },
+    description:{
         type:String
-    },questions:[{
+    },
+    questions:[{
         type:Schema.Types.ObjectId,
         ref:'question'
-    }],image:{
+    }],
+    image:{
         type:String
-    },createdBy:{
+    },
+    createdBy:{
         type:Schema.Types.ObjectId,
         ref:'admin'
     }

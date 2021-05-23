@@ -1,4 +1,4 @@
-const usersdb=require('../Models/users.model');
+const {usersdb}=require('../Models');
 
 const userCheck=async (req,res,next)=>{
     const {id}=req.params;

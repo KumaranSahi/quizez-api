@@ -1,4 +1,4 @@
-const questionsdb=require('../Models/question.model');
+const {questionsdb}=require('../Models');
 
 const questionCheck=async (req,res,next)=>{
     const {questionId}=req.params;

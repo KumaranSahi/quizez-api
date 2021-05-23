@@ -1,4 +1,4 @@
-const quizdb=require('../Models/quiz.model');
+const {quizdb}=require('../Models');
 
 const quizCheck=async (req,res,next)=>{
     const {quizId}=req.params;

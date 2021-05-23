@@ -4,19 +4,24 @@ const userSchema=new Schema({
     name:{
         type:String,
         required:true
-    },email:{
+    },
+    email:{
         type:String,
         required:true,
         unique:true
-    },password:{
+    },
+    password:{
         type:String,
         required:true
-    },image:{
+    },
+    image:{
         type:String
-    },isAdmin:{
+    },
+    isAdmin:{
         type:Schema.Types.ObjectId,
         ref:'admin'
-    },scores:[{
+    },
+    scores:[{
         type:Schema.Types.ObjectId,
         ref:'scoreboard'
     }]

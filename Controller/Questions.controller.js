@@ -1,9 +1,14 @@
-const questionsdb=require('../Models/question.model')
-const quizdb=require('../Models/quiz.model')
-const admindb=require('../Models/admin.model')
+const {questionsdb,quizdb,admindb}=require("../Models")
 
 module.exports.createQuestion=async (req,res)=>{
-    const {question,options,multipleCorrect,points,negativePoints,quiz:quizId,hint}=req.body
+    const {
+        question,
+        options,
+        multipleCorrect,
+        points,
+        negativePoints,
+        quiz:quizId,
+        hint}=req.body
     const user=req.user
     try{
         const admin=await admindb.findById(user.isAdmin)
@@ -46,7 +51,13 @@ module.exports.createQuestion=async (req,res)=>{
 }
 
 module.exports.editQuestion=async (req,res)=>{
-    const {question:content,options,multipleCorrect,points,negativePoints,quiz:quizId,hint,createdBy}=req.body;
+    const {question:content,
+        options,
+        multipleCorrect,
+        points,
+        negativePoints,
+        hint
+    }=req.body;
     const {questionId}=req.params;
     const question=req.question;
     try{

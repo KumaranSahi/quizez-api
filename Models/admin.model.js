@@ -4,10 +4,12 @@ const adminSchema=new Schema({
     createdQuizes:[{
         type:Schema.Types.ObjectId,
         ref:'quiz'
-    }],createdQuestions:[{
+    }],
+    createdQuestions:[{
         type:Schema.Types.ObjectId,
         ref:'question'
-    }],adminUser:{
+    }],
+    adminUser:{
         type:Schema.Types.ObjectId,
         ref:'user'
     }
