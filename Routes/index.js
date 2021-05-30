@@ -9,10 +9,10 @@ const questionCheck=require('../Middleware/questionCheck')
 
 //controller
 
-const userController=require('../Controller/User.controller')
-const quizController=require('../Controller/Quiz.controller')
-const questionController=require('../Controller/Questions.controller')
-const scoreboardController=require('../Controller/Scoreboard.controller')
+const userController=require('../Controller/user.controller')
+const quizController=require('../Controller/quiz.controller')
+const questionController=require('../Controller/question.controller')
+const scoreboardController=require('../Controller/scoreboard.controller')
 
 //User routes
 
