@@ -23,10 +23,11 @@ const signupUser = async (req, res) => {
         message: "User Already exists in the system",
       });
     }
+    const newPassword = await hashingPasswords(password);
     data = await User.create({
       name: name,
       email: email,
-      password: bcrypt.hashSync(password, 8),
+      password: newPassword,
       image: image,
     });
     if (isAdmin) {
