@@ -1,9 +1,9 @@
-const {quizdb}=require('../Models');
+const {Quiz}=require('../Models');
 
 const quizCheck=async (req,res,next)=>{
     const {quizId}=req.params;
     try{
-        const quiz=await quizdb.findById(quizId)
+        const quiz=await Quiz.findById(quizId)
         if(quiz){
             req.quiz=quiz;
             next()

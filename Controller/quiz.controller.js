@@ -1,11 +1,11 @@
-const { quizdb, admindb } = require("../Models");
+const { Quiz, Admin } = require("../Models");
 
 module.exports.createQuiz = async (req, res) => {
   const { name, image, description } = req.body;
   const user = req.user;
   try {
     const admin = await admindb.findById(user.isAdmin);
-    const newQuiz = await quizdb.create({
+    const newQuiz = await Quiz.create({
       name: name,
       image: image,
       createdBy: admin._id,
@@ -34,7 +34,7 @@ module.exports.createQuiz = async (req, res) => {
 
 module.exports.getAllQuizes = async (req, res) => {
   try {
-    const quizes = await quizdb.find();
+    const quizes = await Quiz.find();
     const newQuizes = quizes
       .filter(({ questions }) => questions.length > 0)
       .map(({ _id, name, image, description }) => ({

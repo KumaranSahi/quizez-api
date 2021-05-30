@@ -1,4 +1,4 @@
-const { questionsdb, quizdb, admindb } = require("../Models");
+const { Question, Quiz, Admin } = require("../Models");
 
 module.exports.createQuestion = async (req, res) => {
   const {
@@ -12,9 +12,9 @@ module.exports.createQuestion = async (req, res) => {
   } = req.body;
   const user = req.user;
   try {
-    const admin = await admindb.findById(user.isAdmin);
-    const quiz = await quizdb.findById(quizId);
-    const newQuestion = await questionsdb.create({
+    const admin = await Admin.findById(user.isAdmin);
+    const quiz = await Quiz.findById(quizId);
+    const newQuestion = await Question.create({
       question: question,
       options: options,
       multipleCorrect: multipleCorrect,
@@ -71,7 +71,7 @@ module.exports.editQuestion = async (req, res) => {
       negativePoints: negativePoints,
       hint: hint,
     });
-    const newQuestion = await questionsdb.findById(questionId);
+    const newQuestion = await Question.findById(questionId);
     const editQuestion = {
       id: newQuestion._id,
       question: newQuestion.question,
@@ -98,10 +98,10 @@ module.exports.deleteQuestion = async (req, res) => {
   const { questionId } = req.params;
   const question = req.question;
   try {
-    await admindb.findByIdAndUpdate(question.createdBy, {
+    await Admin.findByIdAndUpdate(question.createdBy, {
       $pull: { createdQuestions: questionId },
     });
-    await quizdb.findByIdAndUpdate(question.quiz, {
+    await Quiz.findByIdAndUpdate(question.quiz, {
       $pull: { questions: questionId },
     });
     await question.remove();

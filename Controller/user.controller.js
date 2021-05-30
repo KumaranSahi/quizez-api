@@ -5,7 +5,7 @@ const {
   hashingPasswords,
   confirmPasswordCheck,
 } = require("../Utils/userUtils");
-const { usersdb, admindb } = require("../Models");
+const { User, Admin } = require("../Models");
 
 module.exports.signupUser = async (req, res) => {
   const { name, email, password, image, isAdmin } = req.body;
@@ -17,20 +17,20 @@ module.exports.signupUser = async (req, res) => {
     });
   }
   try {
-    if (await usersdb.findOne({ email: email })) {
+    if (await User.findOne({ email: email })) {
       return res.status(409).json({
         ok: false,
         message: "User Already exists in the system",
       });
     }
-    data = await usersdb.create({
+    data = await User.create({
       name: name,
       email: email,
       password: bcrypt.hashSync(password, 8),
       image: image,
     });
     if (isAdmin) {
-      const admin = await admindb.create({
+      const admin = await Admin.create({
         adminUser: data._id,
       });
       await data.update({
@@ -87,7 +87,7 @@ module.exports.changePassword = async (req, res) => {
 module.exports.signinUser = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await usersdb.findOne({ email: email });
+    const user = await User.findOne({ email: email });
     if (!user || !bcrypt.compareSync(password, user.password)) {
       return res.status(401).json({
         ok: false,

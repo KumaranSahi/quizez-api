@@ -1,19 +1,26 @@
-const {Schema,model} = require('mongoose')
+const { Schema, model } = require("mongoose");
 
-const adminSchema=new Schema({
-    createdQuizes:[{
-        type:Schema.Types.ObjectId,
-        ref:'quiz'
-    }],
-    createdQuestions:[{
-        type:Schema.Types.ObjectId,
-        ref:'question'
-    }],
-    adminUser:{
-        type:Schema.Types.ObjectId,
-        ref:'user'
-    }
-},{timestamps:true})
+const adminSchema = new Schema(
+  {
+    createdQuizes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Quiz",
+      },
+    ],
+    createdQuestions: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Question",
+      },
+    ],
+    adminUser: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  },
+  { timestamps: true }
+);
 
-const admin=model("admin",adminSchema)
-module.exports=admin;
+const Admin = model("Admin", adminSchema);
+module.exports = Admin;

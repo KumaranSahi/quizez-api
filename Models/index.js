@@ -1,7 +1,7 @@
-module.exports={
-    admindb:require("./admin.model"),
-    questionsdb:require("./question.model"),
-    quizdb:require("./quiz.model"),
-    scoreboardsdb:require("./scoreboard.model"),
-    usersdb:require("./users.model")
-}
+module.exports = {
+  Admin: require("./admin.model"),
+  Question: require("./question.model"),
+  Quiz: require("./quiz.model"),
+  Scoreboard: require("./scoreboard.model"),
+  User: require("./user.model"),
+};

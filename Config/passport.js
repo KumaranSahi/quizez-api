@@ -1,7 +1,7 @@
 const passport = require("passport");
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
-const usersdb = require("../Models/users.model");
+const {User} = require("../Models");
 
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -10,7 +10,7 @@ const opts = {
 
 passport.use(
   new JwtStrategy(opts, function (jwt_payload, done) {
-    usersdb.findById(jwt_payload.userId, function (err, user) {
+    User.findById(jwt_payload.userId, function (err, user) {
       if (err) {
         return done(err, false);
       }
