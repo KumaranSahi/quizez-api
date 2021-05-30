@@ -1,6 +1,6 @@
 const { Question, Quiz, Admin } = require("../Models");
 
-module.exports.createQuestion = async (req, res) => {
+const createQuestion = async (req, res) => {
   const {
     question,
     options,
@@ -51,7 +51,7 @@ module.exports.createQuestion = async (req, res) => {
   }
 };
 
-module.exports.editQuestion = async (req, res) => {
+const editQuestion = async (req, res) => {
   const {
     question: content,
     options,
@@ -94,7 +94,7 @@ module.exports.editQuestion = async (req, res) => {
   }
 };
 
-module.exports.deleteQuestion = async (req, res) => {
+const deleteQuestion = async (req, res) => {
   const { questionId } = req.params;
   const question = req.question;
   try {
@@ -116,3 +116,6 @@ module.exports.deleteQuestion = async (req, res) => {
     });
   }
 };
+
+
+module.exports = { createQuestion, editQuestion, deleteQuestion };

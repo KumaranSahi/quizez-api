@@ -1,6 +1,6 @@
 const { Scoreboard } = require("../Models");
 
-module.exports.QuizDone = async (req, res) => {
+const QuizDone = async (req, res) => {
   const { score, quizId } = req.body;
   const user = req.user;
   try {
@@ -23,7 +23,7 @@ module.exports.QuizDone = async (req, res) => {
   }
 };
 
-module.exports.getTopTen = async (req, res) => {
+const getTopTen = async (req, res) => {
   try {
     const scores = await Scoreboard.find().sort({ score: -1 }).limit(10);
     const populatedScores = await Scoreboard.populate(scores, [
@@ -51,7 +51,7 @@ module.exports.getTopTen = async (req, res) => {
   }
 };
 
-module.exports.getUserTopTen = async (req, res) => {
+const getUserTopTen = async (req, res) => {
   const user = req.user;
   try {
     const scores = await Scoreboard
@@ -81,3 +81,5 @@ module.exports.getUserTopTen = async (req, res) => {
     });
   }
 };
+
+module.exports = { getUserTopTen, getTopTen, QuizDone };

@@ -7,7 +7,7 @@ const {
 } = require("../Utils/userUtils");
 const { User, Admin } = require("../Models");
 
-module.exports.signupUser = async (req, res) => {
+const signupUser = async (req, res) => {
   const { name, email, password, image, isAdmin } = req.body;
   let data = null;
   if (!name && !email && !password && !emailIdCheck(email)) {
@@ -52,7 +52,7 @@ module.exports.signupUser = async (req, res) => {
   }
 };
 
-module.exports.changePassword = async (req, res) => {
+const changePassword = async (req, res) => {
   const { email, password, confirmPassword } = req.body;
   try {
     if (confirmPasswordCheck(password, confirmPassword)) {
@@ -84,7 +84,7 @@ module.exports.changePassword = async (req, res) => {
   }
 };
 
-module.exports.signinUser = async (req, res) => {
+const signinUser = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email: email });
@@ -115,3 +115,5 @@ module.exports.signinUser = async (req, res) => {
     });
   }
 };
+
+module.exports = { signinUser, changePassword, signupUser };

@@ -1,6 +1,6 @@
 const { Quiz, Admin } = require("../Models");
 
-module.exports.createQuiz = async (req, res) => {
+const createQuiz = async (req, res) => {
   const { name, image, description } = req.body;
   const user = req.user;
   try {
@@ -32,7 +32,7 @@ module.exports.createQuiz = async (req, res) => {
   }
 };
 
-module.exports.getAllQuizes = async (req, res) => {
+const getAllQuizes = async (req, res) => {
   try {
     const quizes = await Quiz.find();
     const newQuizes = quizes
@@ -55,7 +55,7 @@ module.exports.getAllQuizes = async (req, res) => {
   }
 };
 
-module.exports.getQuiz = async (req, res) => {
+const getQuiz = async (req, res) => {
   const fetchedQuiz = req.quiz;
   try {
     const quiz = await fetchedQuiz.execPopulate("questions");
@@ -91,7 +91,7 @@ module.exports.getQuiz = async (req, res) => {
   }
 };
 
-module.exports.getUserQuizes = async (req, res) => {
+const getUserQuizes = async (req, res) => {
   const user = req.user;
   try {
     const admin = await admindb.findById(user.isAdmin);
@@ -116,3 +116,5 @@ module.exports.getUserQuizes = async (req, res) => {
     });
   }
 };
+
+module.exports = { createQuiz, getUserQuizes, getQuiz, getAllQuizes };
