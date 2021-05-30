@@ -4,7 +4,6 @@ const passport=require('passport')
 
 //middlewares
 
-const userCheck=require('../Middleware/userCheck');
 const quizCheck=require('../Middleware/quizCheck');
 const questionCheck=require('../Middleware/questionCheck')
 
@@ -23,21 +22,21 @@ router.post('/users/password',userController.changePassword)
 
 //quiz routes
 
-router.post('/quizes/:id/create',passport.authenticate('jwt',{session:false}),userCheck,quizController.createQuiz)
+router.post('/quizes',passport.authenticate('jwt',{session:false}),quizController.createQuiz)
 router.get('/quizes',passport.authenticate('jwt',{session:false}),quizController.getAllQuizes)
 router.get("/quizes/:quizId",passport.authenticate('jwt',{session:false}),quizCheck,quizController.getQuiz)
-router.get("/quizes/:id/user",passport.authenticate('jwt',{session:false}),userCheck,quizController.getUserQuizes)
+router.get("/quizes",passport.authenticate('jwt',{session:false}),quizController.getUserQuizes)
 
 //question routes
 
-router.post('/questions/:id',passport.authenticate('jwt',{session:false}),userCheck,questionController.createQuestion)
+router.post('/questions',passport.authenticate('jwt',{session:false}),questionController.createQuestion)
 router.post('/questions/:questionId/edit',passport.authenticate('jwt',{session:false}),questionCheck,questionController.editQuestion)
 router.delete('/questions/:questionId',passport.authenticate('jwt',{session:false}),questionCheck,questionController.deleteQuestion)
 
 //scorecard routes
 
 router.get("/scorecards",passport.authenticate('jwt',{session:false}),scoreboardController.getTopTen)
-router.post("/scorecards/:id",passport.authenticate('jwt',{session:false}),userCheck,scoreboardController.QuizDone)
-router.get("/scorecards/:id",passport.authenticate('jwt',{session:false}),userCheck,scoreboardController.getUserTopTen)
+router.post("/scorecards",passport.authenticate('jwt',{session:false}),scoreboardController.QuizDone)
+router.get("/scorecards",passport.authenticate('jwt',{session:false}),scoreboardController.getUserTopTen)
 
 module.exports=router;
