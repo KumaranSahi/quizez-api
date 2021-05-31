@@ -4,7 +4,7 @@ const createQuiz = async (req, res) => {
   const { name, image, description } = req.body;
   const user = req.user;
   try {
-    const admin = await admindb.findById(user.isAdmin);
+    const admin = await Admin.findById(user.isAdmin);
     const newQuiz = await Quiz.create({
       name: name,
       image: image,
@@ -94,7 +94,7 @@ const getQuiz = async (req, res) => {
 const getUserQuizes = async (req, res) => {
   const user = req.user;
   try {
-    const admin = await admindb.findById(user.isAdmin);
+    const admin = await Admin.findById(user.isAdmin);
     const quizes = await admin.execPopulate("createdQuizes");
     const newQuizes = quizes.createdQuizes.map(
       ({ _id, name, image, description, questions }) => ({
