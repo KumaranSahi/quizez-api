@@ -3,7 +3,7 @@ const {Question}=require('../Models');
 const questionCheck=async (req,res,next)=>{
     const {questionId}=req.params;
     try{
-        const question=await questionsdb.findById(questionId)
+        const question = await Question.findById(questionId);
         if(question){
             req.question=question;
             next()
