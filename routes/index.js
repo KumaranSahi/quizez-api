@@ -4,8 +4,8 @@ const passport = require("passport");
 
 //middlewares
 
-const quizCheck = require("../Middleware/quizCheck");
-const questionCheck = require("../Middleware/questionCheck");
+const quizCheck = require("../middleware/quizCheck");
+const questionCheck = require("../middleware/questionCheck");
 
 //controller
 
@@ -14,7 +14,7 @@ const {
   questionController,
   quizController,
   scoreboardController,
-} = require("../Controller");
+} = require("../controller");
 
 //User routes
 
