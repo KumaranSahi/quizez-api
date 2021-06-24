@@ -1,4 +1,4 @@
-const { Quiz, Admin } = require("../Models");
+const { Quiz, Admin } = require("../models");
 
 const createQuiz = async (req, res) => {
   const { name, image, description } = req.body;

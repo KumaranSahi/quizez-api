@@ -1,4 +1,4 @@
-const { Scoreboard } = require("../Models");
+const { Scoreboard } = require("../models");
 
 const QuizDone = async (req, res) => {
   const { score, quizId } = req.body;

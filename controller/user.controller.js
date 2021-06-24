@@ -5,7 +5,7 @@ const {
   hashingPasswords,
   confirmPasswordCheck,
 } = require("../Utils/userUtils");
-const { User, Admin } = require("../Models");
+const { User, Admin } = require("../models");
 
 const signupUser = async (req, res) => {
   const { name, email, password, image, isAdmin } = req.body;

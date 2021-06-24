@@ -1,4 +1,4 @@
-const { Question, Quiz, Admin } = require("../Models");
+const { Question, Quiz, Admin } = require("../models");
 
 const createQuestion = async (req, res) => {
   const {
@@ -116,6 +116,5 @@ const deleteQuestion = async (req, res) => {
     });
   }
 };
-
 
 module.exports = { createQuestion, editQuestion, deleteQuestion };
