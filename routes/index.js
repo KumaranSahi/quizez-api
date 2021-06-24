@@ -9,10 +9,12 @@ const questionCheck = require("../Middleware/questionCheck");
 
 //controller
 
-const userController = require("../Controller/user.controller");
-const quizController = require("../Controller/quiz.controller");
-const questionController = require("../Controller/question.controller");
-const scoreboardController = require("../Controller/scoreboard.controller");
+const {
+  userController,
+  questionController,
+  quizController,
+  scoreboardController,
+} = require("../Controller");
 
 //User routes
 
