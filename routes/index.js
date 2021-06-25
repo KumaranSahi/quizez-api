@@ -79,7 +79,7 @@ router.post(
   scoreboardController.QuizDone
 );
 router.get(
-  "/scorecards",
+  "/my-scorecards",
   passport.authenticate("jwt", { session: false }),
   scoreboardController.getUserTopTen
 );
