@@ -4,7 +4,7 @@ const {
   emailIdCheck,
   hashingPasswords,
   confirmPasswordCheck,
-} = require("../Utils/userUtils");
+} = require("../utils/userUtils");
 const { User, Admin } = require("../models");
 
 const signupUser = async (req, res) => {
