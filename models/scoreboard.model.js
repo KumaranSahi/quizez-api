@@ -13,6 +13,9 @@ const scoreboardSchema = new Schema(
     score: {
       type: Number,
     },
+    percentage: {
+      type: Number,
+    },
   },
   { timestamps: true }
 );
