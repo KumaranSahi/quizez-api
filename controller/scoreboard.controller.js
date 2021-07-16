@@ -1,13 +1,19 @@
-const { Scoreboard } = require("../models");
+const { Scoreboard, Quiz } = require("../models");
 
 const QuizDone = async (req, res) => {
   const { score, quizId } = req.body;
   const user = req.user;
   try {
+    const quiz = await (await Quiz.findById(quizId)).execPopulate("questions");
+    const totalScore = quiz.questions.reduce(
+      (acc, { points }) => (acc += points),
+      0
+    );
     const scorecard = await Scoreboard.create({
       user: user._id,
       quiz: quizId,
       score: score,
+      percentage: Math.floor((score / totalScore) * 100),
     });
     user.scores.push(scorecard._id);
     await user.save();
@@ -25,15 +31,15 @@ const QuizDone = async (req, res) => {
 
 const getTopTen = async (req, res) => {
   try {
-    const scores = await Scoreboard.find().sort({ score: -1 }).limit(10);
+    const scores = await Scoreboard.find().sort({ percentage: -1 }).limit(10);
     const populatedScores = await Scoreboard.populate(scores, [
       { path: "user" },
       { path: "quiz" },
     ]);
     const data = populatedScores.map(
-      ({ _id, score, user: { name }, quiz: { name: quizName } }) => ({
+      ({ _id, user: { name }, quiz: { name: quizName },percentage }) => ({
         id: _id,
-        score: score,
+        score: percentage,
         userName: name,
         quizName: quizName,
       })
@@ -54,18 +60,17 @@ const getTopTen = async (req, res) => {
 const getUserTopTen = async (req, res) => {
   const user = req.user;
   try {
-    const scores = await Scoreboard
-      .find({ user: user._id })
+    const scores = await Scoreboard.find({ user: user._id })
       .sort({ score: -1 })
       .limit(10);
     const populatedScores = await Scoreboard.populate(scores, {
       path: "quiz",
     });
     const data = populatedScores.map(
-      ({ _id, score, quiz: { name: quizName, _id: quizId } }) => ({
+      ({ _id, percentage, quiz: { name: quizName, _id: quizId } }) => ({
         id: _id,
         quizId: quizId,
-        score: score,
+        score: percentage,
         quizName: quizName,
       })
     );
