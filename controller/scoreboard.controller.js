@@ -37,7 +37,7 @@ const getTopTen = async (req, res) => {
       { path: "quiz" },
     ]);
     const data = populatedScores.map(
-      ({ _id, user: { name }, quiz: { name: quizName },percentage }) => ({
+      ({ _id, user: { name }, quiz: { name: quizName }, percentage }) => ({
         id: _id,
         score: percentage,
         userName: name,
