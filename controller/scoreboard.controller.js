@@ -9,6 +9,12 @@ const QuizDone = async (req, res) => {
       (acc, { points }) => (acc += points),
       0
     );
+    if (Math.floor((score / totalScore) * 100) > 100) {
+      return res.status(400).json({
+        ok: false,
+        message: "I don't know how you did it but please don't do it again",
+      });
+    }
     const scorecard = await Scoreboard.create({
       user: user._id,
       quiz: quizId,
